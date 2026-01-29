@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct WorldClockApp: App {
+
+    private let di = AppDIContainer()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WorldClockListScreen(
+                viewModel: di.makeWorldClockListViewModel(),
+                formatter: di.makeTimeFormattingService()
+            )
         }
     }
 }
