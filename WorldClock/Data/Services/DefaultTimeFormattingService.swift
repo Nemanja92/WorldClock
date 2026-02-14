@@ -20,17 +20,17 @@ public final class DefaultTimeFormattingService: TimeFormattingService {
         timezoneId: String,
         format: String
     ) -> String {
-        let formatter = formatter(for: timezoneId, format: format)
+        lock.lock()
+        defer { lock.unlock() }
+
+        let formatter = formatterLocked(for: timezoneId, format: format)
         return formatter.string(from: date)
     }
 
     // MARK: - Private
 
-    private func formatter(for timezoneId: String, format: String) -> DateFormatter {
+    private func formatterLocked(for timezoneId: String, format: String) -> DateFormatter {
         let key = CacheKey(timezoneId: timezoneId, format: format)
-
-        lock.lock()
-        defer { lock.unlock() }
 
         if let cached = cache[key] {
             return cached

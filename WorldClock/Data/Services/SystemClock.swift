@@ -13,7 +13,8 @@ public final class SystemClock: Clock {
 
     public func nowStream(every intervalSeconds: Int) -> AsyncStream<Date> {
         AsyncStream { continuation in
-            let interval = TimeInterval(intervalSeconds)
+            let safeIntervalSeconds = max(1, intervalSeconds)
+            let interval = TimeInterval(safeIntervalSeconds)
 
             let timer = Timer.scheduledTimer(
                 withTimeInterval: interval,
