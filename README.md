@@ -1,28 +1,88 @@
-# WorldClock (Demo)
+# **WorldClock**
 
-WorldClock is a small demo iOS app that displays the current time for selected cities across the world. It is intentionally simple and focused on clarity, structure, and modern Swift patterns.
+WorldClock is a small iOS demo app that shows the current time across selected cities around the world.
 
-## What It Uses
-- SwiftUI for the UI
+The goal of the project is not feature breadth, but to demonstrate a clean and readable SwiftUI codebase with a lightweight architecture, dependency injection, and continuously updating time data.
+
+## **Highlights**
+
+- SwiftUI-based UI
+  
 - MVVM for presentation logic
-- A lightweight Clean Architecture split (Data / Domain / Presentation)
-- Dependency Injection via a small `AppDIContainer`
-- `AsyncStream` + `Timer` for live “now” updates
-- `DateFormatter` caching for efficient time formatting
+  
+- Lightweight Clean Architecture split across Data, Domain, and Presentation
+  
+- Dependency injection through a small AppDIContainer
+  
+- AsyncStream + Timer for live clock updates
+  
+- Cached DateFormatter instances for more efficient time formatting
+  
 
-## Key Components
-- `WorldClockApp.swift`: app entry point wiring the DI container.
-- `AppDIContainer.swift`: creates services, use cases, and view models.
-- `WorldClockListViewModel.swift`: drives the screen state and the ticking clock.
-- `WorldClockListScreen.swift` + `LocationRowView.swift`: SwiftUI views.
-- `SystemClock.swift`: provides a ticking `AsyncStream<Date>`.
-- `DefaultTimeFormattingService.swift`: formats time per timezone with caching.
-- `StaticContinentsRepository.swift` + `StaticContinentsData.swift`: demo data source.
+## **Architecture**
 
-## Interesting Bits
-- The clock stream emits immediately so the UI does not wait for the first tick.
-- Time formatting falls back to the current timezone if an ID is invalid.
-- Clean separation makes it easy to swap the static repository for a real API.
+The project is intentionally structured to keep responsibilities clear and easy to follow:
 
-## Notes
-This is a demo project and intentionally avoids networking, persistence, and complex UI flows to keep the architecture easy to explore.
+- **Presentation** contains SwiftUI screens and view models
+  
+- **Domain** contains the business models and use cases
+  
+- **Data** contains concrete services and repositories
+  
+
+This keeps the app simple to explore while still showing how the same structure could scale to a larger feature.
+
+## **Key Parts**
+
+- WorldClockApp.swift
+  
+  App entry point that wires the dependency container
+  
+- AppDIContainer.swift
+  
+  Creates and assembles services, repositories, use cases, and view models
+  
+- WorldClockListViewModel.swift
+  
+  Manages screen state and reacts to the ticking clock stream
+  
+- SystemClock.swift
+  
+  Exposes a live AsyncStream<Date> so the UI can stay in sync with the current time
+  
+- DefaultTimeFormattingService.swift
+  
+  Formats time values by timezone and reuses cached DateFormatter instances
+  
+- StaticContinentsRepository.swift and StaticContinentsData.swift
+  
+  Provide the demo data source used by the app
+  
+
+## **Implementation Notes**
+
+A few details in the app are intentionally designed to keep the experience responsive and the code practical:
+
+- The clock stream emits immediately so the UI does not wait for the first timer tick
+  
+- Time formatting falls back to the current timezone if an invalid timezone identifier is provided
+  
+- The repository layer can be swapped later for a real API without changing the presentation layer
+  
+
+## **Why This Project**
+
+This project was built as a small, focused demo to show:
+
+- clean separation of responsibilities
+  
+- simple dependency injection
+  
+- live time-based updates using modern Swift concurrency tools
+  
+- an approachable architecture that can grow without becoming over-engineered
+  
+
+## **Notes**
+
+This is intentionally a small demo project. It avoids networking, persistence, and more complex flows so the core structure is easy to understand at a glance.
