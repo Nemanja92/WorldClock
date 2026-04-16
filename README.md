@@ -2,6 +2,12 @@
 
 WorldClock is a small iOS demo app that shows the current time across selected cities around the world.
 
+## Screenshot
+
+<p align="center">
+  <img src="Screenshots/worldclock-home.png" alt="WorldClock screenshot" width="220" />
+</p>
+
 The goal of the project is not feature breadth, but to demonstrate a clean and readable SwiftUI codebase with a lightweight architecture, dependency injection, and continuously updating time data.
 
 ## **Highlights**
